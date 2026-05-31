@@ -27,7 +27,7 @@ At the start of every session, before proposing or implementing anything:
 
 1. **Read PROJECT-CONTEXT.md in full** — understand current state, open issues, what's next
 2. **Read PLATFORM-CONTEXT.md** — understand the API surface and dependency registry
-3. **Check pending change requests** — process before other work
+3. **Read BACKLOG.md** — understand the current work queue; note any items relevant to this session
 4. **Announce session number** — confirms orientation is complete
 5. **Wait for Tom to direct the session** — do not propose new work until oriented
 
@@ -179,14 +179,91 @@ Do not write essays. Do not over-explain. Concise and accurate.
 
 ---
 
+## Backlog Discipline
+
+Every project maintains a `BACKLOG.md` file in its repo. This is the single source
+of truth for all known work — features, bugs, improvements, and deferred ideas.
+
+### Item format
+
+```
+### [PROJECT-CODE]-[N]: [Title]
+**Priority:** P1 / P2 / P3
+**Status:** open | in-progress | deferred | declined | done
+**Added:** YYYY-MM-DD
+**Description:** What needs to be done and why. Enough context for a future Claude
+to understand without asking.
+```
+
+Priority guide: **P1** — needs to happen soon, blocks something, or is a live issue;
+**P2** — clearly worth doing, no urgency; **P3** — nice to have, low confidence it
+will ever be scheduled.
+
+### Project codes
+
+| Project | Code |
+|---|---|
+| Anderson Platform | `AP` |
+| Stock Trader | `ST` |
+| NutriTrack Pro | `NT` |
+| PACE | `PC` |
+| Jigsaw | `JG` |
+| Anderson Hub | `HB` |
+
+New projects get a code assigned during onboarding (see `NEW-APP-GUIDE.md`).
+
+### Active statuses (live in BACKLOG.md)
+
+- `open` — not started, ready to be picked up
+- `in-progress` — being worked on this session
+- `deferred` — consciously postponed; will revisit
+
+### Terminal statuses (archived to BACKLOG-ARCHIVE.md)
+
+- `done` — completed and verified by Tom
+- `declined` — consciously not doing; no longer needed or deliberately rejected
+
+Items move to the archive at session end when their status becomes `done` or
+`declined`. The archive is kept for reference but not read at session start.
+
+### When to interact with the backlog
+
+**Session start:** read BACKLOG.md as part of orientation. Note open P1 items.
+Do not act on them until Tom directs the session.
+
+**During the session — when you notice something:** if you spot a bug, gap, or
+improvement while working on something else, add it to BACKLOG.md immediately
+with status `open`. Do not fix it mid-flight. This is how "while I'm in here I'll
+also..." gets captured without derailing the current task.
+
+**During the session — when work is approved:** update the item's status to
+`in-progress` when work begins.
+
+**Session end:**
+- Mark completed items `done` and move them to BACKLOG-ARCHIVE.md
+- Move any `declined` items to BACKLOG-ARCHIVE.md
+- Confirm remaining `open` and `deferred` items are accurately described
+- Add any new items discovered during the session that weren't captured mid-flight
+
+### Adding items from Tom mid-session
+
+When Tom mentions something that isn't the current task:
+1. Add it to BACKLOG.md immediately (status: `open`, priority as directed or best
+   judgment)
+2. Finish the current task first
+3. Then intake the new item properly per Task Intake rules above
+
+---
+
 ## Quick Reference Card
 
 ```
-SESSION START:    Orient fully. Wait for Tom to direct. Don't propose until ready.
+SESSION START:    Orient fully (PROJECT-CONTEXT, PLATFORM-CONTEXT, BACKLOG). Wait for Tom.
 TASK INTAKE:      What? Why? Done = what? Scope? Approved?
-DURING:           Build what was approved. Note everything else.
-MID-SESSION NEW:  Finish current first. Then intake the new thing.
+DURING:           Build what was approved. Add everything else to BACKLOG.md.
+MID-SESSION NEW:  Add to backlog. Finish current first. Then intake properly.
 DEBUGGING SPIRAL: Stop. Real diagnosis. See developer skill.
 TOKEN BUDGET LOW: Verify, commit, document. Clean handoff beats heroics.
 DONE:             Tom confirmed. Not "I think it's working."
+SESSION END:      Archive done/declined. Confirm open items accurate.
 ```
